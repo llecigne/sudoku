@@ -28,3 +28,17 @@ def test_solve_is_actually_solving():
     for i in range(9):
         for j in range(9):
             assert got[i][j] == want[i][j]
+
+def test_solve_returns_none_when_not_solvable():
+    grid = [
+        [7,0,0,  0,0,0,  0,0,6],
+        [0,7,0,  6,0,0,  0,4,0],
+        [0,0,2,  0,0,8,  0,0,0],
+        [0,0,8,  0,0,0,  0,0,0],
+        [0,5,0,  8,0,6,  0,0,0],
+        [0,0,0,  0,2,0,  0,0,0],
+        [0,0,0,  0,0,0,  0,1,0],
+        [0,4,0,  5,0,0,  0,0,0],
+        [0,0,5,  0,0,7,  0,0,4]
+    ]
+    assert solve(grid) is None

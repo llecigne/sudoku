@@ -1,7 +1,7 @@
 def solve(grid):
     """Sudoku solver"""
     if not is_grid_format_valid(grid):
-        return "invalid grid"
+        return None
     return _solve(grid)
 
 def is_grid_format_valid(grid):
@@ -99,7 +99,7 @@ def seq_is_complete(seq):
     return all(num in seq for num in range(1, 10))
 
 def grid_as_str(grid):
-    return '\n'.join(" ".join(str(cell) for cell in row) for row in grid)
+    return '\n'.join(' '.join(str(cell) for cell in row) for row in grid)
 
 if __name__ == '__main__':
     input_grid = [
