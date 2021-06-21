@@ -42,49 +42,33 @@ def next_cell_coord(coord):
 
 def reject(grid):
     return (
-        any(seq_has_duplicates(row) for row in each_grid_rows(grid))
-        or any(seq_has_duplicates(col) for col in each_grid_cols(grid))
-        or any(seq_has_duplicates(sqr_cells(sqr)) for sqr in each_grid_sqrs(grid))
+        any(seq_has_duplicates(row) for row in grid_rows(grid))
+        or any(seq_has_duplicates(col) for col in grid_cols(grid))
+        or any(seq_has_duplicates(sqr_cells(sqr)) for sqr in grid_sqrs(grid))
     )
 
 def accept(grid):
     return (
-        all(seq_is_complete(row) for row in each_grid_rows(grid))
-        and all(seq_is_complete(col) for col in each_grid_cols(grid))
-        and all(seq_is_complete(sqr_cells(sqr)) for sqr in each_grid_sqrs(grid))
+        all(seq_is_complete(row) for row in grid_rows(grid))
+        and all(seq_is_complete(col) for col in grid_cols(grid))
+        and all(seq_is_complete(sqr_cells(sqr)) for sqr in grid_sqrs(grid))
+    )
+
+def grid_sqr(grid, row_index, col_index):
+    return (
+        row[col_index*3:(col_index+1)*3]
+        for row in grid[row_index*3:(row_index+1)*3]
     )
 
 def grid_rows(grid):
-    return grid
-
-def grid_cols(grid):
-    return [
-        [row[col_index] for row in grid]
-        for col_index in range(0, 9)
-    ]
-
-def grid_sqrs(grid):
-    return [
-        grid_sqr(grid, row_index, col_index)
-        for col_index in range(0, 3)
-        for row_index in range(0, 3)
-    ]
-
-def grid_sqr(grid, row_index, col_index):
-    return [
-        row[col_index*3:(col_index+1)*3]
-        for row in grid[row_index*3:(row_index+1)*3]
-    ]
-
-def each_grid_rows(grid):
     for row in grid:
         yield(row) 
 
-def each_grid_cols(grid):
+def grid_cols(grid):
     for col_index in range(0, 9):
         yield([row[col_index] for row in grid])
 
-def each_grid_sqrs(grid):
+def grid_sqrs(grid):
     for col_index in range(0, 3):
         for row_index in range(0, 3):
             yield(grid_sqr(grid, row_index, col_index))
